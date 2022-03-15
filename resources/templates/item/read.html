@@ -1,0 +1,53 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>商品リスト</title>
+<link rel="stylesheet" media="all" th:href="@{/css/ress.min.css}" />
+<link rel="stylesheet" media="all" th:href="@{/css/style.css}" /> 
+<script th:src="@{/js/jquery-2.1.4.min.js}"></script>
+<script th:src="@{/js/style.js}"></script>
+
+<!-- Favicon -->
+<!-- <link rel="icon" type="image/png" th:href="@{/img/favicon.png}"> -->
+
+</head>
+ <body>
+    <div class="container">
+      <h1>商品リスト</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>商品名</th>
+            <th>価格</th>
+            <th>商品内容</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr th:each="itemform:${itemlist}" th:object="${itemform}">
+          <!-- <tr th:each="itemform:${itemlist}" th:object="${itemform}">  --> 
+            <td th:text="*{id}"></td>
+            <td th:text="*{name}"></td>
+            <td th:text="*{price}"></td>
+            <td th:text="*{content}"></td>
+            
+            
+            <td><a class="btn btn-default btn-xs" th:href="@{/item/edit/{id}(id=*{id})}">編集</a></td>
+            <td>
+              <form th:action="@{/item/delete/{id}(id=*{id})}" th:method="delete">
+                <input class="btn btn-default btn-xs" type="submit" value="削除" />
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <a class="btn btn-default btn-xs" href="/item/create">新規作成</a>
+      <a class="btn btn-default btn-xs" href="/">ホーム</a>
+    </div>
+ </body>
+</html>
